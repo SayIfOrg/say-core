@@ -1,0 +1,66 @@
+# General
+# ------------------------------------------------------------------------------
+USE_DOCKER=no
+#IPYTHONDIR=
+# {str, default to config.settings}
+#DJANGO_SETTINGS_MODULE=
+# {bool, default to false}
+# DJANGO_READ_DOT_ENV_FILE=
+PLUGGABLES=DEBUG_TOOLBAR,NO_PASS_VALIDATION,SERVE_STATICFILES
+# {str, default to admin/}
+#DJANGO_ADMIN_URL=
+# {list, default to localhost,0.0.0.0,127.0.0.1}
+#DJANGO_ALLOWED_HOSTS=
+# {do not set this except dummy usages , postgres://user:password@hostname:port/db_name}
+#DATABASE_URL=
+# {int, default to 0}
+#CONN_MAX_AGE=
+# {bool, default to false}
+#GRAPHIQL=
+# {int, default to 1}
+#MAX_LOG_FILE_COUNT=
+TELEGRAM_BOT_TOKEN=some-telegram-bot-token
+# {path, default to telegram-webhook/}
+#TELEGRAM_WEBHOOK_URL=
+TELEGRAM_WEBHOOK_SECRET=some-telegram-unsafe-token
+# {url, default no proxy is being used}
+#TELEGRAM_PROXY=
+
+# Security
+# ------------------------------------------------------------------------------
+# {bool, default to false}
+#DJANGO_DEBUG=
+DJANGO_SECRET_KEY=some-random-unsecure-fsdfsajkgkjsbgkjsahd87549yhiqhwrwy48y84
+# {tuple, default to HTTP_X_FORWARDED_PROTO, None)
+#DJANGO_SECURE_PROXY_SSL_HEADER=
+# {bool, default to false}
+#DJANGO_SECURE_SSL_REDIRECT=
+# {bool, default to false}
+#DJANGO_SESSION_COOKIE_SECURE=
+# {bool, default to false}
+#DJANGO_CSRF_COOKIE_SECURE=
+# {int, default to 0}
+#SECURE_HSTS_SECONDS=
+# {bool, default to false}
+#DJANGO_SECURE_HSTS_INCLUDE_SUBDOMAINS=
+# {bool, default to false}
+#DJANGO_SECURE_HSTS_PRELOAD=
+
+
+# Gunicorn
+# ------------------------------------------------------------------------------
+WEB_CONCURRENCY=4
+
+
+# Redis
+# ------------------------------------------------------------------------------
+# redis://hostname:port/db_number
+REDIS_URL=redis://redis:6379/0
+
+# Celery
+# ------------------------------------------------------------------------------
+CELERY_BROKER_URL=$REDIS_URL
+
+# Flower
+CELERY_FLOWER_USER=debug
+CELERY_FLOWER_PASSWORD=debug

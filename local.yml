@@ -1,0 +1,94 @@
+version: '3'
+
+volumes:
+  say_core_local_postgres_data: {}
+  say_core_local_postgres_data_backups: {}
+
+services:
+  django: &django
+    build:
+      context: .
+      dockerfile: ./compose/local/django/Dockerfile
+    image: say_core_local_django
+    container_name: say_core_local_django
+    depends_on:
+      - postgres
+      - redis
+    volumes:
+      - .:/app:z
+    env_file:
+      - ./.envs/.django.dist
+      - ./.envs/.postgres.dist
+    ports:
+      - '8000:8000'
+    command: /start
+
+  telegrampoll:
+    <<: *django
+    image: say_core_local_telegrampoll
+    container_name: say_core_local_telegrampoll
+    depends_on:
+      - redis
+      - postgres
+    ports: [ ]
+    command: /start-telegrampoll
+
+  postgres:
+    build:
+      context: .
+      dockerfile: ./compose/production/postgres/Dockerfile
+    image: say_core_production_postgres
+    container_name: say_core_local_postgres
+    volumes:
+      - say_core_local_postgres_data:/var/lib/postgresql/data
+      - say_core_local_postgres_data_backups:/backups
+    env_file:
+      - ./.envs/.postgres.dist
+
+  docs:
+    image: say_core_local_docs
+    container_name: say_core_local_docs
+    build:
+      context: .
+      dockerfile: ./compose/local/docs/Dockerfile
+    env_file:
+      - ./.envs/.django.dist
+    volumes:
+      - ./docs:/docs:z
+      - ./config:/app/config:z
+      - ./say_core:/app/say_core:z
+    ports:
+      - '9000:9000'
+    command: /start-docs
+
+  redis:
+    image: redis:6
+    container_name: say_core_local_redis
+
+  celeryworker:
+    <<: *django
+    image: say_core_local_celeryworker
+    container_name: say_core_local_celeryworker
+    depends_on:
+      - redis
+      - postgres
+    ports: []
+    command: /start-celeryworker
+
+  celerybeat:
+    <<: *django
+    image: say_core_local_celerybeat
+    container_name: say_core_local_celerybeat
+    depends_on:
+      - redis
+      - postgres
+    ports: []
+    command: /start-celerybeat
+
+  flower:
+    <<: *django
+    image: say_core_local_flower
+    container_name: say_core_local_flower
+    ports:
+      - '5555:5555'
+    command: /start-flower

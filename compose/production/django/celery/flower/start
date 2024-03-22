@@ -1,0 +1,12 @@
+#!/bin/bash
+
+set -o errexit
+set -o nounset
+
+
+exec celery \
+    -A config.celery_app \
+    -b "${CELERY_BROKER_URL}" \
+    flower \
+    --port=5555 --address='0.0.0.0' --url_prefix=flower \
+    --basic_auth="${CELERY_FLOWER_USER}:${CELERY_FLOWER_PASSWORD}"

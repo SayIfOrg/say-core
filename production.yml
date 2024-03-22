@@ -1,0 +1,59 @@
+version: '3'
+
+volumes:
+  production_django_media: {}
+  production_django_logs: {}
+
+services:
+  django: &django
+    build:
+      context: .
+      dockerfile: ./compose/production/django/Dockerfile
+
+    image: say_core_production_django
+    volumes:
+      - production_django_media:/app/say_core/media
+      - production_django_logs:/app/say_core/logs
+    depends_on:
+      - redis
+    env_file:
+      - ./.envs/.django
+      - ./.envs/.postgres
+    command: /start
+    extra_hosts:
+      - 'host-gateway:host-gateway'
+
+  telegrampoll:
+    <<: *django
+    image: say_core_production_telegrampoll
+    command: /start-telegrampoll
+
+  redis:
+    image: redis:6
+
+  celeryworker:
+    <<: *django
+    image: say_core_production_celeryworker
+    command: /start-celeryworker
+
+  celerybeat:
+    <<: *django
+    image: say_core_production_celerybeat
+    command: /start-celerybeat
+
+  flower:
+    <<: *django
+    image: say_core_production_flower
+    command: /start-flower
+
+  nginx:
+    build:
+      context: .
+      dockerfile: ./compose/production/nginx/Dockerfile
+    image: say_core_local_nginx
+    depends_on:
+      - django
+    volumes:
+      - production_django_media:/usr/share/nginx/media:ro
+    ports:
+      - '0.0.0.0:80:80'

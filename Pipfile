@@ -1,0 +1,50 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+aiogram = ">=3.3.0,<3.4"
+django = ">=4.2.8,<5"
+django-axes = ">=6.3.0,<6.4"
+django-celery-beat = ">=2.5.0,<2.6"
+django-celery-results = ">=2.5.1,<2.6"
+django-cleanup = ">=8.0.0,<8.1"
+django-cors-headers = ">=4.3.1,<4.4"
+django-environ = ">=0.11.2,<0.12"
+django-filter = ">=23.5,<23.6"
+django-graphql-jwt = ">=0.4.0,<0.5"
+django-redis = ">=5.4.0,<5.5"
+djangorestframework-simplejwt = ">=5.3.1,<5.4"
+channels = ">=4.0.0,<4.1"
+graphene-django = ">=3.2,<3.3"
+aiohttp-socks = ">=0.8.4,<0.9"
+argon2-cffi = ">=23.1.0,<23.2"  # for django.contrib.auth.hashers.Argon2PasswordHasher
+drf-spectacular = ">=0.27,<0.28"
+celery = ">=5.3.6,<5.4"
+flower = ">=2.0.1,<2.1"
+Pillow = ">=10.1.0,<10.2"
+whitenoise = ">=6.6.0,<6.7"
+
+[dev-packages]
+django-coverage-plugin = ">=3.1.0,<3.2"
+django-debug-toolbar = ">=4.2.0,<4.3"
+coverage = ">=7.4.0,<7.5"
+daphne = ">=4.0.0,<4.1"
+factory-boy = ">=3.3.0,<3.4"
+pre-commit = ">=3.6.0,<3.7"
+"psycopg[binary]" = ">=3.1.16,<3.2"
+pytest = ">=7.4.3,<7.5"
+pytest-django = ">=4.7.0,<4.8"
+pytest-sugar = ">=0.9.7,<1"
+Sphinx = "7.2.6,<7.3"
+sphinx-autobuild = "2021.3.14"
+watchfiles = ">=0.21.0,<0.22"
+
+[prod-packages]
+"psycopg[c]" = ">=3.1.16,<3.2"
+gunicorn = ">=21.2.0,<21.3"
+"uvicorn[standard]" = ">=0.25.0,<1"
+
+[requires]
+python_version = ">=3.9,<3.13"
