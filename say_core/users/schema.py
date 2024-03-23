@@ -4,6 +4,7 @@ import graphene
 from graphene import relay
 from graphene_django import DjangoObjectType
 from graphene_django.filter import DjangoFilterConnectionField
+from graphql_jwt.decorators import permission_required
 
 from .filters import UserFilter
 from .models import UserModel
@@ -23,6 +24,7 @@ class UserType(DjangoObjectType):
         fields = ("id", "username", "name")
 
     @classmethod
+    @permission_required("auth.view_user")
     def get_queryset(cls, queryset, info):
         return queryset
 

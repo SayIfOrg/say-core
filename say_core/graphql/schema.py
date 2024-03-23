@@ -10,8 +10,6 @@ class Query(UsersQuery, graphene.ObjectType):
     if settings.PLUGGABLE_FUNCS.DEBUG_TOOLBAR:
         debug = graphene.Field(DjangoDebug, name="_debug")
 
-    hello = graphene.String(default_value="Hi!")
-
 
 class Mutation(graphene.ObjectType, UsersMutation):
     pass
