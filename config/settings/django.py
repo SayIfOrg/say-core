@@ -109,6 +109,7 @@ THIRD_PARTY_APPS = clean_ellipsis(
         "graphql_jwt.refresh_token",
         "rest_framework",
         "rest_framework_simplejwt",
+        "rest_framework_simplejwt.token_blacklist",
         "whitenoise.runserver_nostatic",
         # make sure any runserver command is after whitenoise's
         "daphne" if PLUGGABLE_FUNCS.DAPHNE else ...,
