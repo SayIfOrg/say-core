@@ -1,6 +1,6 @@
 import pytest
 
-from say_core.users.models import User
+from say_core.users.models import UserModel
 from say_core.users.tests.factories import UserFactory
 
 
@@ -10,5 +10,5 @@ def media_storage(settings, tmpdir):
 
 
 @pytest.fixture
-def user(db) -> User:
+def user(db) -> UserModel:
     return UserFactory()

@@ -1,9 +1,9 @@
 from django.urls import resolve, reverse
 
-from ..models import User
+from ..models import UserModel
 
 
-def test_user_detail(user: User):
+def test_user_detail(user: UserModel):
     assert reverse("rest:user-detail", kwargs={"username": user.username}) == f"/api/users/{user.username}/"
     assert resolve(f"/api/users/{user.username}/").view_name == "rest:user-detail"
 

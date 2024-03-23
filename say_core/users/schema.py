@@ -6,7 +6,7 @@ from graphene_django import DjangoObjectType
 from graphene_django.filter import DjangoFilterConnectionField
 
 from .filters import UserFilter
-from .models import User
+from .models import UserModel
 
 
 class JWTMutation:
@@ -18,7 +18,7 @@ class JWTMutation:
 
 class UserType(DjangoObjectType):
     class Meta:
-        model = User
+        model = UserModel
         interfaces = (relay.Node,)
         fields = ("id", "username", "name")
 

@@ -1,6 +1,6 @@
 from django.urls import reverse
 
-from ..models import User
+from ..models import UserModel
 
 
 class TestUserAdmin:
@@ -28,10 +28,10 @@ class TestUserAdmin:
             },
         )
         assert response.status_code == 302
-        assert User.objects.filter(username="test").exists()
+        assert UserModel.objects.filter(username="test").exists()
 
     def test_view_user(self, admin_client):
-        user = User.objects.get(username="admin")
+        user = UserModel.objects.get(username="admin")
         url = reverse("admin:users_user_change", kwargs={"object_id": user.pk})
         response = admin_client.get(url)
         assert response.status_code == 200

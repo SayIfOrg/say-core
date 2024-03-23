@@ -1,11 +1,11 @@
 import django_filters
 
-from .models import User
+from .models import UserModel
 
 
 class UserFilter(django_filters.FilterSet):
     class Meta:
-        model = User
+        model = UserModel
         fields = {
             "name": ["icontains"],
             "username": ["icontains", "exact"],
