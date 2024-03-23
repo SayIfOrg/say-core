@@ -5,10 +5,10 @@ from django.utils.translation import gettext_lazy as _
 
 from say_core.users.forms import UserAdminChangeForm, UserAdminCreationForm
 
-User = get_user_model()
+UserModel = get_user_model()
 
 
-@admin.register(User)
+@admin.register(UserModel)
 class UserAdmin(auth_admin.UserAdmin):
     form = UserAdminChangeForm
     add_form = UserAdminCreationForm

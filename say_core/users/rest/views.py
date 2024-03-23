@@ -7,12 +7,12 @@ from rest_framework.viewsets import GenericViewSet
 
 from .serializers import UserSerializer
 
-User = get_user_model()
+UserModel = get_user_model()
 
 
 class UserViewSet(RetrieveModelMixin, ListModelMixin, UpdateModelMixin, GenericViewSet):
     serializer_class = UserSerializer
-    queryset = User.objects.all()
+    queryset = UserModel.objects.all()
     lookup_field = "username"
 
     def get_queryset(self, *args, **kwargs):

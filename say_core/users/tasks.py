@@ -4,13 +4,13 @@ from graphql_jwt.refresh_token.utils import get_refresh_token_model
 from django.contrib.auth import get_user_model
 from django.db.models import Q
 
-User = get_user_model()
+UserModel = get_user_model()
 
 
 @shared_task
 def get_users_count():
     """A pointless Celery task to demonstrate usage."""
-    return User.objects.count()
+    return UserModel.objects.count()
 
 
 @shared_task
