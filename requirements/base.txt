@@ -55,7 +55,7 @@ prometheus-client==0.19.0; python_version >= '3.8'
 promise==2.3
 prompt-toolkit==3.0.43; python_full_version >= '3.7.0'
 pycparser==2.21
-pydantic==2.5.3; python_version >= '3.7'
+pydantic==2.6.4; python_version >= '3.7'
 pydantic-core==2.14.6; python_version >= '3.7'
 pyjwt==2.8.0; python_version >= '3.7'
 python-crontab==3.0.0
