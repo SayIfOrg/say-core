@@ -10,16 +10,12 @@ from django.utils.translation import gettext as _
 router = Router(name="core")
 
 
-class MenuType(str, Enum):
-    technical_builder = "technical_builder"
-
-
-class MenuCallback(CallbackData, prefix="menu"):
-    key: MenuType
+class MainMenuType(str, Enum):
+    WP_COMMENTING = "wp_commenting"
 
 
 @router.message(CommandStart())
 async def command_start_handler(message: Message) -> None:
-    builder = InlineKeyboardBuilder()
-    builder.button(text=_("technical builder"), callback_data=MenuCallback(key=MenuType.technical_builder))
-    await message.answer("menu", reply_markup=builder.as_markup())
+    ikbuilder = InlineKeyboardBuilder()
+    ikbuilder.button(text=_("WordPress commenting"), callback_data=MainMenuType.WP_COMMENTING)
+    await message.answer(_("menu"), reply_markup=ikbuilder.as_markup())

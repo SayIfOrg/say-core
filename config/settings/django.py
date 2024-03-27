@@ -93,6 +93,7 @@ CACHES = {
 # APPS
 # ------------------------------------------------------------------------------
 LOCAL_APPS = [
+    "say_core.blogging",
     "say_core.telegram_bot",
     "say_core.users",
 ]
@@ -108,6 +109,7 @@ THIRD_PARTY_APPS = clean_ellipsis(
         "graphene_django",
         "graphql_jwt.refresh_token",
         "rest_framework",
+        "rest_framework_api_key",
         "rest_framework_simplejwt",
         "rest_framework_simplejwt.token_blacklist",
         "whitenoise.runserver_nostatic",

@@ -1,3 +1,5 @@
+from datetime import timedelta
+
 from environ import environ
 
 from ._setup import env
@@ -9,6 +11,13 @@ from ._setup import env
 # show graphiql panel or not
 GRAPHIQL = env.bool("GRAPHIQL", False)
 
+# blogging
+# ------------------------------------------------------------------------------
+WP_PLUGIN = {
+    "ping_url": "/sayif/ping"
+}
+WP_GENERATED_CODE_VALID_TIME = timedelta(minutes=10)
+
 # telegram_bot
 # ------------------------------------------------------------------------------
 TELEGRAM_BOT_TOKEN = env.str("TELEGRAM_BOT_TOKEN")
@@ -17,3 +26,6 @@ TELEGRAM_WEBHOOK_SECRET = env.str("TELEGRAM_WEBHOOK_SECRET")
 TELEGRAM_PROXY = env.url("TELEGRAM_PROXY", default=None)
 if TELEGRAM_PROXY:
     TELEGRAM_PROXY = environ.urlunparse(TELEGRAM_PROXY)
+TELEGRAM_MIDDLEWARE = [
+    "say_core.telegram_bot.t_middleware.AuthenticationMiddleware",
+]

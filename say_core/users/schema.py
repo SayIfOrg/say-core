@@ -1,10 +1,10 @@
 import graphql_jwt
+from graphql_jwt.decorators import permission_required
 
 import graphene
 from graphene import relay
 from graphene_django import DjangoObjectType
 from graphene_django.filter import DjangoFilterConnectionField
-from graphql_jwt.decorators import permission_required
 
 from .filters import UserFilter
 from .models import UserModel
