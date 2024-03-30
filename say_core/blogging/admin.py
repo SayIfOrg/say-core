@@ -1,6 +1,11 @@
 from django.contrib import admin
 
-from say_core.blogging.models import WPPostModel, WPSiteModel
+from say_core.blogging.models import WPPostModel, WPSiteModel, WPRegisterModel
+
+
+@admin.register(WPRegisterModel)
+class WPRegisterAdmin(admin.ModelAdmin):
+    pass
 
 
 @admin.register(WPSiteModel)

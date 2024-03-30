@@ -38,6 +38,7 @@ class WPRegisterModel(TimeStampedModel, models.Model):
     code = models.CharField(max_length=127)
     code_generated_at = models.DateTimeField()
     code_used_at = models.DateTimeField(null=True, blank=True)
+    secret_code = models.CharField(max_length=255, null=True, blank=True)
     apikey = models.ForeignKey("rest_framework_api_key.APIKey", related_name="wpregister_set", on_delete=models.PROTECT, null=True, blank=True)
 
     objects = WPRegisterManager()
