@@ -3,16 +3,30 @@ import logging
 from aiogram import Bot, F, Router
 from aiogram.enums import ChatType
 from aiogram.filters import JOIN_TRANSITION, LEAVE_TRANSITION, ChatMemberUpdatedFilter, CommandStart
-from aiogram.types import ChatMemberUpdated
+from aiogram.types import CallbackQuery, ChatMemberUpdated
+from aiogram.utils.keyboard import InlineKeyboardBuilder
 from django.contrib.auth import get_user_model
 from django.core.cache import caches
 from django.utils.translation import gettext as _
 
+from say_core.core.dispatchers import MainMenuType
 from say_core.telegram_bot.models import TelegramUserProfileModel, TGroupModel, TGroupRegisterModel
 
 router = Router(name="telegram_bot")
 UserModel = get_user_model()
 logger = logging.getLogger(__name__)
+
+
+@router.callback_query(lambda query: query.data == MainMenuType.TGROUP_LIST)
+async def list_tgroup_handler(query: CallbackQuery, user: UserModel):
+    tgroup_register_qs = TGroupRegisterModel.objects.filter(user=user, is_active=True).select_related("tgroup")
+    ikbuilder = InlineKeyboardBuilder()
+    async for tgroup_register_obj in tgroup_register_qs:
+        ikbuilder.button(text=tgroup_register_obj.tgroup.title, callback_data="dummy")
+    ikbuilder.button(text=_("back"), callback_data="main_menu")
+    ikbuilder.adjust(1, 1)
+    text = _("this is the list of your Telegram groups.")
+    await query.message.edit_text(text=text, reply_markup=ikbuilder.as_markup())
 
 
 @router.my_chat_member(ChatMemberUpdatedFilter(member_status_changed=LEAVE_TRANSITION))

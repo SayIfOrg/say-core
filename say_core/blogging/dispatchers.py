@@ -15,6 +15,18 @@ router = Router(name="blogging")
 UserModel = get_user_model()
 
 
+@router.callback_query(lambda query: query.data == MainMenuType.WP_LIST)
+async def list_wp_site_handler(query: CallbackQuery, user: UserModel):
+    wp_register_qs = WPRegisterModel.objects.filter(user=user).select_related("site")
+    ikbuilder = InlineKeyboardBuilder()
+    async for wp_register_obj in wp_register_qs:
+        ikbuilder.button(text=wp_register_obj.site.url, callback_data="dummy")
+    ikbuilder.button(text=_("back"), callback_data="main_menu")
+    ikbuilder.adjust(1, 1)
+    text = _("this is the list of your WorPress sites.")
+    await query.message.edit_text(text=text, reply_markup=ikbuilder.as_markup())
+
+
 class SimpleCallbackDataType(str, Enum):
     I_HAVE_THE_WP_PLUGIN_NOW_NEXT = "i_have_the_wp_plugin_now_next"
 
