@@ -2,12 +2,13 @@ from collections.abc import Awaitable, Callable
 from typing import Any
 
 from asgiref.sync import sync_to_async
-from say_core.telegram_bot.models import TelegramUserProfileModel
 
 from aiogram import BaseMiddleware
 from aiogram.types import Chat, TelegramObject, User
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser
+
+from say_core.telegram_bot.models import TelegramUserProfileModel
 
 UserModel = get_user_model()
 
@@ -35,5 +36,11 @@ class AuthenticationMiddleware(BaseMiddleware):
             else:
                 telegram_user_profile_obj = None
 
-        data.update(user=telegram_user_profile_obj.user if telegram_user_profile_obj else AnonymousUser())
+        if telegram_user_profile_obj:
+            user = telegram_user_profile_obj.user
+            # for performance
+            user._telegram_profile = telegram_user_profile_obj
+        else:
+            user = AnonymousUser()
+        data.update(user=user)
         return await handler(event, data)

@@ -14,12 +14,13 @@ from say_core.core.dispatchers import MainMenuType
 router = Router(name="blogging")
 UserModel = get_user_model()
 
+
 class SimpleCallbackDataType(str, Enum):
     I_HAVE_THE_WP_PLUGIN_NOW_NEXT = "i_have_the_wp_plugin_now_next"
 
 
-@router.callback_query(lambda query: query.data == MainMenuType.WP_COMMENTING)
-async def wp_commenting_menu_handler(query: CallbackQuery, *args, **kwargs):
+@router.callback_query(lambda query: query.data == MainMenuType.WP_REGISTER)
+async def wp_register_menu_handler(query: CallbackQuery, *args, **kwargs):
     ikbuilder = InlineKeyboardBuilder()
     ikbuilder.button(text=_("get from راست چین"), url="https://www.rtl-theme.com/")
     ikbuilder.button(text=_("already got it"), callback_data=SimpleCallbackDataType.I_HAVE_THE_WP_PLUGIN_NOW_NEXT)

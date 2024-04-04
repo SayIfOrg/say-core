@@ -1,7 +1,9 @@
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 from rest_framework_simplejwt.views import TokenBlacklistView, TokenObtainPairView, TokenRefreshView, TokenVerifyView
-from say_core.blogging.rest import views as blogging_views
+
 from django.urls import path
+
+from say_core.blogging.rest import views as blogging_views
 
 app_name = "rest"
 urlpatterns = [
